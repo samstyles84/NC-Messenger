@@ -1,0 +1,29 @@
+{
+  "name": "NC-Messenger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "knex": "^0.21.2",
+    "pg": "^8.3.3"
+  },
+  "scripts": {
+    "start": "node ./server/listen.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samstyles84/NC-Messenger.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samstyles84/NC-Messenger/issues"
+  },
+  "homepage": "https://github.com/samstyles84/NC-Messenger#readme",
+  "engines": {
+    "node": "14.4"
+  }
+}

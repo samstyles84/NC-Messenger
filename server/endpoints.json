@@ -1,0 +1,67 @@
+{
+  "GET /api": {
+    "description": "serves up a json representation of all the available endpoints of the api"
+  },
+  "GET /api/users": {
+    "description": "serves an array of all users",
+    "queries": [],
+    "exampleResponse": {
+      "users": [
+        {
+          "user_id": 1,
+          "username": "AlexRobu",
+          "url": "https://www.warrington.gov.uk/sites/default/files/2020-07/new_market_-_opening_day.jpg"
+        },
+        {
+          "user_id": 2,
+          "username": "SamStyles",
+          "url": "https://static.dezeen.com/uploads/2014/01/Manchester-Metropolitan-University-art-school-extension-with-wooden-stairs-and-bridges-by-Feilden-Clegg-Bradley-Studios_dezeen_ss_1.jpg"
+        }
+      ]
+    }
+  },
+  "GET /api/users/:user_id": {
+    "description": "serves an object containing requested user",
+    "queries": [],
+    "exampleResponse": {
+      "users": {
+        "user_id": 1,
+        "username": "AlexRobu",
+        "url": "https://www.warrington.gov.uk/sites/default/files/2020-07/new_market_-_opening_day.jpg"
+      }
+    }
+  },
+  "POST /api/users": {
+    "description": "adds a new user",
+    "queries": [],
+    "examplePostObject": {
+      "username": "NeilBuchanan",
+      "url": "https://www.unilad.co.uk/wp-content/uploads/2020/09/art-attack-neil-responds.jpg"
+    },
+    "exampleResponse": {
+      "user": {
+        "user_id": 4,
+        "username": "NeilBuchanan",
+        "url": "https://www.unilad.co.uk/wp-content/uploads/2020/09/art-attack-neil-responds.jpg"
+      }
+    }
+  },
+  "PATCH /api/users/:user_id": {
+    "description": "returns an updated user by ID",
+    "queries": [],
+    "examplePatchObject": {
+      "username": "Banksy",
+      "url": "https://www.unilad.co.uk/wp-content/uploads/2020/09/art-attack-neil-responds.jpg"
+    },
+    "exampleResponse": {
+      "user": {
+        "user_id": 4,
+        "username": "Banksy",
+        "url": "https://www.unilad.co.uk/wp-content/uploads/2020/09/art-attack-neil-responds.jpg"
+      }
+    }
+  },
+  "DELETE /api/users/:user_id": {
+    "description": "removes a user"
+  }
+}
