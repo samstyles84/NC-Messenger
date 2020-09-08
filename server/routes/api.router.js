@@ -6,6 +6,6 @@ const { handle405s } = require("../errors");
 
 apiRouter.use("/users", usersRouter);
 
-apiRouter.route("/").get(sendAPIs).all(handle405s);
+//apiRouter.route("/").get(sendAPIs).all(handle405s);
 
 module.exports = apiRouter;

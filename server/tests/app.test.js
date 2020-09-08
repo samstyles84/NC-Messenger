@@ -108,20 +108,20 @@ describe("app", () => {
           expect(res.body.msg).toBe("Path not found! :-(");
         });
     });
-    test("INVALID METHODS: 405 error", () => {
-      const invalidMethods = ["put", "post", "patch", "delete"];
-      const endPoint = "/api";
+    // test("INVALID METHODS: 405 error", () => {
+    //   const invalidMethods = ["put", "post", "patch", "delete"];
+    //   const endPoint = "/api";
 
-      const promises = invalidMethods.map((method) => {
-        return request(app)
-          [method](endPoint)
-          .expect(405)
-          .then(({ body: { msg } }) => {
-            expect(msg).toBe("method not allowed!!!");
-          });
-      });
-      return Promise.all(promises);
-    });
+    //   const promises = invalidMethods.map((method) => {
+    //     return request(app)
+    //       [method](endPoint)
+    //       .expect(405)
+    //       .then(({ body: { msg } }) => {
+    //         expect(msg).toBe("method not allowed!!!");
+    //       });
+    //   });
+    //   return Promise.all(promises);
+    // });
   });
   describe("/users errors", () => {
     test("POST: 400 - Bad Request status code when `POST` request does not include all the required keys", () => {
@@ -226,14 +226,23 @@ describe("app", () => {
         });
     });
   });
-  describe("api/ - get all the available endpoints", () => {
-    test("returns a json object with the available methods", () => {
-      return request(app)
-        .get("/api")
-        .expect(200)
-        .then((result) => {
-          expect(result.body).toEqual(expect.any(Object));
-        });
-    });
-  });
+  // describe("/api/ - get all the available endpoints", () => {
+  //   test("returns a json object with the available methods", () => {
+  //     return request(app)
+  //       .get("/api")
+  //       .expect(200)
+  //       .then((result) => {
+  //         expect(result.body).toEqual(expect.any(Object));
+  //       });
+  //   });
+  //   test("returns a json object with the available methods", () => {
+  //     return request(app)
+  //       .get("/api/")
+  //       .expect(200)
+  //       .then((result) => {
+  //         console.log(result.body, "result.body");
+  //         expect(result.body).toEqual(expect.any(Object));
+  //       });
+  //   });
+  // });
 });
