@@ -100,3 +100,15 @@ describe("app", () => {
     });
   });
 });
+
+describe("api/ - get all the available endpoints", () => {
+  test("returns a json object with the available methods", () => {
+    return request(app)
+      .get("/api")
+      .expect(200)
+      .then((result) => {
+        // console.log(result.body);
+        expect(result.body).toEqual(expect.any(Object));
+      });
+  });
+});
