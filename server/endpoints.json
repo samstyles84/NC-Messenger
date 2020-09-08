@@ -30,5 +30,20 @@
         "url": "https://www.warrington.gov.uk/sites/default/files/2020-07/new_market_-_opening_day.jpg"
       }
     }
+  },
+  "POST /api/users": {
+    "description": "adds a new user",
+    "queries": [],
+    "examplePostObject": {
+      "username": "NeilBuchanan",
+      "url": "https://www.unilad.co.uk/wp-content/uploads/2020/09/art-attack-neil-responds.jpg"
+    },
+    "exampleResponse": {
+      "user": {
+        "user_id": 4,
+        "username": "NeilBuchanan",
+        "url": "https://www.unilad.co.uk/wp-content/uploads/2020/09/art-attack-neil-responds.jpg"
+      }
+    }
   }
 }

@@ -4,12 +4,10 @@ exports.fetchUsers = (user_id) => {
   return knex
     .select("*")
     .from("users")
-    .returning("*")
     .modify((query) => {
       if (user_id) query.where("user_id", user_id);
     })
     .then((users) => {
-      console.log(users, "response");
       if (users.length === 0) {
         return Promise.reject({ status: 404, msg: "user id not found" });
       } else if (users.length === 1) {
@@ -17,5 +15,40 @@ exports.fetchUsers = (user_id) => {
       } else {
         return users;
       }
+    });
+};
+
+exports.postUser = (username, url) => {
+  const userToAdd = {
+    username: username,
+    url: url,
+  };
+
+  return knex("users")
+    .insert(userToAdd)
+    .returning("*")
+    .then((userToAdd) => {
+      return userToAdd[0];
+    });
+};
+
+exports.patchUser = (username, url, user_id) => {
+  return knex("users")
+    .where("user_id", user_id)
+    .update(
+      {
+        username: username,
+        url: url,
+      },
+      ["username", "url", "user_id"]
+    )
+    .then((userArray) => {
+      if (userArray.length === 0) {
+        return Promise.reject({
+          status: 404,
+          msg: "user id not found",
+        });
+      }
+      return userArray[0];
     });
 };
