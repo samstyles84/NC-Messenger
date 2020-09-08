@@ -1,6 +1,9 @@
 app = require("./app");
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
+const cors = require("cors");
+
+app.use(cors());
 
 const users = {};
 io.on("connection", (socket) => {
