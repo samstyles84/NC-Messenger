@@ -22,14 +22,14 @@ const customConfig = {
   },
   development: {
     connection: {
-      database: "NCmessenger",
+      database: "ncmessenger",
       // user:,
       // password:
     },
   },
   test: {
     connection: {
-      database: "NCmessenger_test",
+      database: "ncmessenger_test",
       // user:,
       // password:
     },

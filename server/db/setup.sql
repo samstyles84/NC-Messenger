@@ -1,5 +1,5 @@
-DROP DATABASE IF EXISTS NCmessenger_test;
-DROP DATABASE IF EXISTS NCmessenger;
+DROP DATABASE IF EXISTS ncmessenger_test;
+DROP DATABASE IF EXISTS ncmessenger;
 
-CREATE DATABASE NCmessenger_test;
-CREATE DATABASE NCmessenger;
+CREATE DATABASE ncmessenger_test;
+CREATE DATABASE ncmessenger;
