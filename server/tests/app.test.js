@@ -11,5 +11,43 @@ describe("app", () => {
     return knex.destroy();
   });
 
-  test("ALL: 404 - non existent path", () => {});
+  describe("/users", () => {
+    test("GET 200: responds with an array of the user objects ", () => {
+      return request(app)
+        .get("/api/users")
+        .expect(200)
+        .then((res) => {
+          expect(res.body.users.length).toBe(3);
+          res.body.users.forEach((user) => {
+            expect(user).toEqual(
+              expect.objectContaining({
+                user_id: expect.any(Number),
+                username: expect.any(String),
+                url: expect.any(String),
+              })
+            );
+          });
+        });
+    });
+
+    test("ALL: 404 - non existent path", () => {});
+  });
+  describe("/users/:user_id", () => {
+    test("GET 200: responds with the correct user object", () => {
+      return request(app)
+        .get("api/users/2")
+        .expect(200)
+        .then((res) => {
+          expect(res.body.user).toEqual(
+            expect.objectContaining({
+              user_id: expect.toBe(2),
+              username: expect.toBe("SamStyles"),
+              url: expect.toBe(
+                "https://static.dezeen.com/uploads/2014/01/Manchester-Metropolitan-University-art-school-extension-with-wooden-stairs-and-bridges-by-Feilden-Clegg-Bradley-Studios_dezeen_ss_1.jpg"
+              ),
+            })
+          );
+        });
+    });
+  });
 });
