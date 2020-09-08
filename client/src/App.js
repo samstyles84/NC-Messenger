@@ -6,7 +6,7 @@ import LandingPage from "./components/LandingPage";
 import MainChat from "./components/MainChat";
 import PrivateChat from "./components/PrivateChat";
 
-const socket = io.connect("http://localhost:9000");
+const socket = io.connect("https://ncmessenger-be.herokuapp.com/");
 
 class App extends Component {
   state = {
