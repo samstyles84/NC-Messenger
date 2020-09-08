@@ -17,13 +17,26 @@
     "supertest": "^4.0.2",
     "nodemon": "^2.0.4"
   },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-sorted"
+    ]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "npm test"
     }
   },
   "scripts": {
-    "test": "jest  --passWithNoTests"
+    "setup-dbs": "psql -f ./db/setup.sql",
+    "seed": "knex seed:run",
+    "test": "NODE_ENV=test && jest --passWithNoTests",
+    "migrate-latest": "knex migrate:latest",
+    "migrate-rollback": "knex migrate:rollback",
+    "seed:prod": "NODE_ENV=production DB_URL=$(heroku config:get DATABASE_URL) knex seed:run",
+    "migrate-latest:prod": "NODE_ENV=production DB_URL=$(heroku config:get DATABASE_URL) knex migrate:latest",
+    "migrate-rollback:prod": "NODE_ENV=production DB_URL=$(heroku config:get DATABASE_URL) knex migrate:rollback",
+    "start": "node listen.js"
   },
   "keywords": [],
   "author": "",
