@@ -45,5 +45,23 @@
         "url": "https://www.unilad.co.uk/wp-content/uploads/2020/09/art-attack-neil-responds.jpg"
       }
     }
+  },
+  "PATCH /api/users/:user_id": {
+    "description": "returns an updated user by ID",
+    "queries": [],
+    "examplePatchObject": {
+      "username": "Banksy",
+      "url": "https://www.unilad.co.uk/wp-content/uploads/2020/09/art-attack-neil-responds.jpg"
+    },
+    "exampleResponse": {
+      "user": {
+        "user_id": 4,
+        "username": "Banksy",
+        "url": "https://www.unilad.co.uk/wp-content/uploads/2020/09/art-attack-neil-responds.jpg"
+      }
+    }
+  },
+  "DELETE /api/users/:user_id": {
+    "description": "removes a user"
   }
 }

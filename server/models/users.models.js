@@ -52,3 +52,19 @@ exports.patchUser = (username, url, user_id) => {
       return userArray[0];
     });
 };
+
+exports.deleteUser = (user_id) => {
+  return knex("users")
+    .where("user_id", user_id)
+    .del()
+    .then((deletedItems) => {
+      if (deletedItems === 0) {
+        return Promise.reject({
+          status: 404,
+          msg: "user id not found",
+        });
+      } else {
+        return deletedItems;
+      }
+    });
+};

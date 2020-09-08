@@ -1,4 +1,9 @@
-const { fetchUsers, patchUser, postUser } = require("../models/users.models");
+const {
+  fetchUsers,
+  patchUser,
+  postUser,
+  deleteUser,
+} = require("../models/users.models");
 
 const sendUsers = (req, res, next) => {
   const { user_id } = req.params;
@@ -36,19 +41,18 @@ const updateUser = (req, res, next) => {
     });
 };
 
-// const removeIngredient = (req, res, next) => {
-//   const { ingredient_id } = req.params;
+const removeUser = (req, res, next) => {
+  const { user_id } = req.params;
 
-//   deleteIngredient(ingredient_id)
-//     .then((deletedIngredients) => {
-//       if (deletedIngredients) {
-//         res.sendStatus(204);
-//       } else {
-//       }
-//     })
-//     .catch((err) => {
-//       next(err);
-//     });
-// };
+  deleteUser(user_id)
+    .then((deletedUser) => {
+      if (deletedUser) {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
 
-module.exports = { sendUsers, addUser, updateUser };
+module.exports = { sendUsers, addUser, updateUser, removeUser };
