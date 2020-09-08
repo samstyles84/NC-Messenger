@@ -99,16 +99,141 @@ describe("app", () => {
         });
     });
   });
-});
+  describe("/api errors", () => {
+    test("ALL: 404 - non existent path", () => {
+      return request(app)
+        .get("/not-a-route")
+        .expect(404)
+        .then((res) => {
+          expect(res.body.msg).toBe("Path not found! :-(");
+        });
+    });
+    test("INVALID METHODS: 405 error", () => {
+      const invalidMethods = ["put", "post", "patch", "delete"];
+      const endPoint = "/api";
 
-describe("api/ - get all the available endpoints", () => {
-  test("returns a json object with the available methods", () => {
-    return request(app)
-      .get("/api")
-      .expect(200)
-      .then((result) => {
-        // console.log(result.body);
-        expect(result.body).toEqual(expect.any(Object));
+      const promises = invalidMethods.map((method) => {
+        return request(app)
+          [method](endPoint)
+          .expect(405)
+          .then(({ body: { msg } }) => {
+            expect(msg).toBe("method not allowed!!!");
+          });
       });
+      return Promise.all(promises);
+    });
+  });
+  describe("/users errors", () => {
+    test("POST: 400 - Bad Request status code when `POST` request does not include all the required keys", () => {
+      return request(app)
+        .post("/api/users")
+        .send({
+          username: "butter_bridge",
+        })
+        .expect(400)
+        .then(({ body: { msg } }) => {
+          expect(msg).toBe("bad request to db!!!");
+        });
+    });
+    test("INVALID METHODS: 405 error", () => {
+      const invalidMethods = ["put", "patch", "delete"];
+      const endPoint = "/api/users/";
+      const promises = invalidMethods.map((method) => {
+        return request(app)
+          [method](endPoint)
+          .expect(405)
+          .then(({ body: { msg } }) => {
+            expect(msg).toBe("method not allowed!!!");
+          });
+      });
+      return Promise.all(promises);
+    });
+  });
+  describe("/users/:user_id errors", () => {
+    test("GET: 404 - user_id doesn't exist in the database", () => {
+      const apiString = `/api/users/999`;
+      return request(app)
+        .get(apiString)
+        .expect(404)
+        .then(({ body: { msg } }) => {
+          expect(msg).toBe("user id not found");
+        });
+    });
+    test("GET: 400 - Badly formed user_id", () => {
+      const apiString = `/api/users/sam`;
+      return request(app)
+        .get(apiString)
+        .expect(400)
+        .then(({ body: { msg } }) => {
+          expect(msg).toBe("bad request to db!!!");
+        });
+    });
+    test("INVALID METHODS: 405 error", () => {
+      const invalidMethods = ["put", "post"];
+      const endPoint = "/api/users/1";
+      const promises = invalidMethods.map((method) => {
+        return request(app)
+          [method](endPoint)
+          .expect(405)
+          .then(({ body: { msg } }) => {
+            expect(msg).toBe("method not allowed!!!");
+          });
+      });
+      return Promise.all(promises);
+    });
+    test("PATCH: 404 - User doesn't exist in the database", () => {
+      const apiString = `/api/users/999`;
+      return request(app)
+        .patch("/api/users/999")
+        .send({
+          username: "Corned Beef 2",
+          url: "Store cupboard",
+        })
+        .expect(404)
+        .then(({ body: { msg } }) => {
+          expect(msg).toBe("user id not found");
+        });
+    });
+    test("PATCH: 400 - Badly formed user_id", () => {
+      const apiString = `/api/users/sam`;
+      return request(app)
+        .patch("/api/users/sam")
+        .send({
+          username: "Corned Beef 2",
+          url: "Store cupboard",
+        })
+        .expect(400)
+        .then(({ body: { msg } }) => {
+          expect(msg).toBe("bad request to db!!!");
+        });
+    });
+    test("DELETE: 400 - Badly formed user_id", () => {
+      const apiString = `/api/users/sam`;
+      return request(app)
+        .delete("/api/users/sam")
+        .expect(400)
+        .then(({ body: { msg } }) => {
+          expect(msg).toBe("bad request to db!!!");
+        });
+    });
+    test("DELETE: 404 - User doesn't exist in the database", () => {
+      const apiString = `/api/users/999`;
+      return request(app)
+        .delete("/api/users/999")
+        .expect(404)
+        .then(({ body: { msg } }) => {
+          expect(msg).toBe("user id not found");
+        });
+    });
+  });
+  describe("api/ - get all the available endpoints", () => {
+    test("returns a json object with the available methods", () => {
+      return request(app)
+        .get("/api")
+        .expect(200)
+        .then((result) => {
+          expect(result.body).toEqual(expect.any(Object));
+        });
+    });
   });
 });
