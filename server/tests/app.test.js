@@ -84,5 +84,19 @@ describe("app", () => {
           });
         });
     });
+    test("DELETE 204: deletes the user information for the given id and checks if id was deleted ", () => {
+      return request(app)
+        .delete("/api/users/1")
+        .expect(204)
+        .then(() => {
+          return request(app)
+            .get("/api/users")
+            .then((res) => {
+              expect(res.body.users.every((user) => user.user_id !== 1)).toBe(
+                true
+              );
+            });
+        });
+    });
   });
 });
